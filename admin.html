@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HWID Key Manager — Admin</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <div class="login-box">
+      <div class="login-icon">🔐</div>
+      <div class="login-title">Admin Panel</div>
+      <div class="login-sub">ใส่ Server URL และ Admin Secret</div>
+      <input id="l-url" type="text" placeholder="https://api-production-1399.up.railway.app/" />
+      <input id="l-secret" type="password" placeholder="Admin Secret" />
+      <div id="l-error" class="login-error" style="display:none;">❌ ไม่สามารถเชื่อมต่อได้</div>
+      <button onclick="doAdminLogin()">🔓 เข้าสู่ระบบ</button>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app" style="display:none;">
+    <div class="wrap">
+
+      <div class="header">
+        <div class="title">🔑 HWID Key Manager <span class="badge">Admin</span></div>
+        <div class="header-actions">
+          <button class="btn-create" onclick="openCreate()">+ สร้าง Key ใหม่</button>
+          <button class="btn-logout" onclick="doLogout()">🚪 ออก</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="stat-label">Key ทั้งหมด</div><div class="stat-val" id="s-total">0</div></div>
+        <div class="stat"><div class="stat-label">Active</div><div class="stat-val green" id="s-active">0</div></div>
+        <div class="stat"><div class="stat-label">Locked</div><div class="stat-val red" id="s-locked">0</div></div>
+        <div class="stat"><div class="stat-label">HWID ผูกแล้ว</div><div class="stat-val blue" id="s-hwid">0</div></div>
+      </div>
+
+      <div class="table-wrap">
+        <div class="table-head">
+          <div class="th">Label</div>
+          <div class="th">API Key</div>
+          <div class="th">HWID</div>
+          <div class="th">สถานะ</div>
+          <div class="th">สร้างเมื่อ</div>
+          <div class="th">จัดการ</div>
+        </div>
+        <div id="key-list"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="overlay" id="createModal">
+    <div class="modal">
+      <div class="modal-title">🔑 สร้าง Key ใหม่</div>
+      <div class="field">
+        <label>Label (ไม่บังคับ)</label>
+        <input id="f-label" type="text" placeholder="เช่น User A" />
+      </div>
+      <div class="new-key-box" id="newKeyBox" style="display:none;">
+        <div class="new-key-label">✅ Key ของคุณ — คัดลอกไว้ก่อนปิด!</div>
+        <div class="new-key-val" id="newKeyVal"></div>
+        <div class="new-key-warn">⚠️ Key นี้จะแสดงเพียงครั้งเดียว</div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeCreate()">ปิด</button>
+        <button class="btn-confirm" id="createConfirmBtn" onclick="doCreate()">✨ สร้าง</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="admin.js"></script>
+</body>
+</html>
