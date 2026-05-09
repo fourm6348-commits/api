@@ -1,5 +1,5 @@
 // ===== CONFIG =====
-let SERVER_URL = '';
+let SERVER_URL = 'https://api-production-2829d.up.railway.app/';
 let ADMIN_SECRET = '1111';
 
 // ===== LOGIN =====
